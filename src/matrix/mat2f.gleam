@@ -92,27 +92,27 @@ pub fn mul_vec2(mat: Mat2f, rhs: Vec2f) -> Vec2f {
 
 /// Transforms a `Vec2f` by the transpose of this `Mat2f`.
 pub fn mul_transpose_vec2(mat: Mat2f, rhs: Vec2f) -> Vec2f {
-  Vec2(vec2f.dot(mat.x, rhs), vec2f.dot(mat.y, rhs))
+  vec2.map(mat, vec2f.dot(_, rhs))
 }
 
 /// Negates all elements of the `Mat2f`
 pub fn negate(mat: Mat2f) -> Mat2f {
-  from_cols(vec2f.negate(mat.x), vec2f.negate(mat.y))
+  vec2.map(mat, vec2f.negate)
 }
 
 /// Adds two `Mat2f` together.
 pub fn add(a: Mat2f, b: Mat2f) -> Mat2f {
-  from_cols(vec2f.add(a.x, b.x), vec2f.add(a.y, b.y))
+  vec2.map2(a, b, vec2f.add)
 }
 
 /// Subtracts one `Mat2f` from the other.
 pub fn subtract(a: Mat2f, b: Mat2f) -> Mat2f {
-  from_cols(vec2f.subtract(a.x, b.x), vec2f.subtract(a.y, b.y))
+  vec2.map2(a, b, vec2f.subtract)
 }
 
 /// Multiplies two `Mat2f` together.
 pub fn multiply(a: Mat2f, b: Mat2f) -> Mat2f {
-  from_cols(mul_vec2(a, b.x), mul_vec2(a, b.y))
+  vec2.map(b, mul_vec2(a, _))
 }
 
 /// Divides one `Mat2f` by another. Equivalent to multiplying the inverse of the second matrix.
@@ -123,12 +123,12 @@ pub fn divide(a: Mat2f, b: Mat2f) -> Result(Mat2f, Nil) {
 
 /// Scales the `Mat2f` by a `Float` factor.
 pub fn scale(mat: Mat2f, scale: Float) -> Mat2f {
-  from_cols(vec2f.scale(mat.x, scale), vec2f.scale(mat.y, scale))
+  vec2.map(mat, vec2f.scale(_, scale))
 }
 
 /// Scales the `Mat2f` by a `Vec2f`.
 ///
 /// This is faster than creating a diagonal scaling matrix and then multiplying that.
 pub fn scale_diagonal(mat: Mat2f, scale: Vec2f) -> Mat2f {
-  from_cols(vec2f.scale(mat.x, scale.x), vec2f.scale(mat.y, scale.y))
+  vec2.map2(mat, scale, vec2f.scale)
 }
