@@ -1,0 +1,21 @@
+name = "matrix_gleam"
+version = "1.0.0"
+
+# Fill out these fields if you intend to generate HTML documentation or publish
+# your project to the Hex package manager.
+#
+description = "Matrix mathematics for Gleam"
+licences = ["MIT"]
+repository = { type = "github", user = "seancribbs", repo = "matrix" }
+# links = [{ title = "Website", href = "" }]
+#
+# For a full reference of all the available options, you can have a look at
+# https://gleam.run/writing-gleam/gleam-toml/.
+
+[dependencies]
+gleam_stdlib = ">= 0.44.0 and < 2.0.0"
+vec = ">= 3.2.0 and < 4.0.0"
+gleam_community_maths = ">= 2.0.1 and < 3.0.0"
+
+[dev-dependencies]
+gleeunit = ">= 1.0.0 and < 2.0.0"
