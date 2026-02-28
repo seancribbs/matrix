@@ -21,6 +21,39 @@ const w: Vec4f = Vec4(0.0, 0.0, 0.0, 1.0)
 /// The 4x4 identity matrix
 pub const identity: Mat4f = Vec4(x, y, z, w)
 
+/// Constructs a `Mat4f` from its components.
+/// ```text
+/// | ax  bx  cx  dx |
+/// | ay  by  cy  dy |
+/// | az  bz  cz  dz |
+/// | aw  bw  cw  dw |
+/// ```
+pub fn new(
+  ax: Float,
+  ay: Float,
+  az: Float,
+  aw: Float,
+  bx: Float,
+  by: Float,
+  bz: Float,
+  bw: Float,
+  cx: Float,
+  cy: Float,
+  cz: Float,
+  cw: Float,
+  dx: Float,
+  dy: Float,
+  dz: Float,
+  dw: Float,
+) -> Mat4f {
+  Vec4(
+    Vec4(ax, ay, az, aw),
+    Vec4(bx, by, bz, bw),
+    Vec4(cx, cy, cz, cw),
+    Vec4(dx, dy, dz, dw),
+  )
+}
+
 /// Constructs a `Mat4f` from its four columns.
 /// ```text
 /// | a.x  b.x  c.x  d.x |

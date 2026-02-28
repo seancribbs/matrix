@@ -2,6 +2,10 @@
 
 Matrix mathematics for Gleam, inspired by portions of the Rust `glam` library.
 
+Matrices in this library are compositions of vectors from the `vec` library (as type aliases), so many of their operations are expressed in terms of operations on `vec` types. You can build your own on top in the same way!
+
+All contained matrices are column-major; that is, in a 2x2 matrix, the first _column_ is the `x` component of the `Vec2`.
+
 [![Package Version](https://img.shields.io/hexpm/v/matrix_gleam)](https://hex.pm/packages/matrix_gleam)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/matrix_gleam/)
 
