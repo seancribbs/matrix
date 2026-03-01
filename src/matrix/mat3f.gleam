@@ -124,17 +124,17 @@ pub fn inverse(mat: Mat3f) -> Result(Mat3f, Nil) {
   // components and inline the multiplication), but it is the most direct mapping
   // to what the Reference above states, nine determinants based on projections
   // of the original matrix.
-  let xx = mat |> yz3 |> vec2.map(yz3) |> mat2f.determinant
-  let xy = mat |> xz3 |> vec2.map(yz3) |> vec2.swap |> mat2f.determinant
-  let xz = mat |> xy3 |> vec2.map(yz3) |> mat2f.determinant
+  let xx = mat |> yz_ |> vec2.map(yz_) |> mat2f.determinant
+  let xy = mat |> xz_ |> vec2.map(yz_) |> vec2.swap |> mat2f.determinant
+  let xz = mat |> xy_ |> vec2.map(yz_) |> mat2f.determinant
 
-  let yx = mat |> yz3 |> vec2.map(xz3) |> vec2.swap |> mat2f.determinant
-  let yy = mat |> xz3 |> vec2.map(xz3) |> mat2f.determinant
-  let yz = mat |> xy3 |> vec2.map(xz3) |> vec2.swap |> mat2f.determinant
+  let yx = mat |> yz_ |> vec2.map(xz_) |> vec2.swap |> mat2f.determinant
+  let yy = mat |> xz_ |> vec2.map(xz_) |> mat2f.determinant
+  let yz = mat |> xy_ |> vec2.map(xz_) |> vec2.swap |> mat2f.determinant
 
-  let zx = mat |> yz3 |> vec2.map(xy3) |> mat2f.determinant
-  let zy = mat |> xz3 |> vec2.map(xy3) |> vec2.swap |> mat2f.determinant
-  let zz = mat |> xy3 |> vec2.map(xy3) |> mat2f.determinant
+  let zx = mat |> yz_ |> vec2.map(xy_) |> mat2f.determinant
+  let zy = mat |> xz_ |> vec2.map(xy_) |> vec2.swap |> mat2f.determinant
+  let zz = mat |> xy_ |> vec2.map(xy_) |> mat2f.determinant
 
   scale(new(xx, xy, xz, yx, yy, yz, zx, zy, zz), inv_det)
 }
@@ -189,14 +189,14 @@ pub fn scale_diagonal(mat: Mat3f, scale: Vec3f) -> Mat3f {
   vec3.map2(mat, scale, vec3f.scale)
 }
 
-fn xz3(v: Vec3(a)) -> Vec2(a) {
+fn xz_(v: Vec3(a)) -> Vec2(a) {
   Vec2(x: v.x, y: v.z)
 }
 
-fn xy3(v: Vec3(a)) -> Vec2(a) {
+fn xy_(v: Vec3(a)) -> Vec2(a) {
   Vec2(x: v.x, y: v.y)
 }
 
-fn yz3(v: Vec3(a)) -> Vec2(a) {
+fn yz_(v: Vec3(a)) -> Vec2(a) {
   Vec2(x: v.y, y: v.z)
 }
