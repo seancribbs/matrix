@@ -12,6 +12,7 @@ All contained matrices are column-major; that is, in a 2x2 matrix, the first _co
 ```sh
 gleam add matrix_gleam
 ```
+
 ```gleam
 import matrix/mat3f
 import vec/vec3
