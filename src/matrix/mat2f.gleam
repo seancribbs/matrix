@@ -1,10 +1,11 @@
 //// 2x2 matrices of floats
 
 import gleam/float
+import gleam/list
 import gleam/result
 import gleam_community/maths
 import vec/vec2.{type Vec2, Vec2}
-import vec/vec2f.{type Vec2f}
+import vec/vec2f.{type Vec2f, positive_x, positive_y}
 
 /// Mat2f is a 2x2 column-major matrix of `Float`s.
 pub type Mat2f =
@@ -13,12 +14,8 @@ pub type Mat2f =
 /// A Mat2f with all elements set to `0.0`
 pub const zero: Mat2f = vec2.Vec2(vec2f.zero, vec2f.zero)
 
-const x: Vec2f = Vec2(1.0, 0.0)
-
-const y: Vec2f = Vec2(0.0, 1.0)
-
 /// A Mat2f representing the identity, i.e. `1.0` is on the diagonal.
-pub const identity: Mat2f = vec2.Vec2(x, y)
+pub const identity: Mat2f = vec2.Vec2(positive_x, positive_y)
 
 /// Constructs a `Mat2f` from its components:
 /// ```text
@@ -66,6 +63,11 @@ pub fn transpose(mat: Mat2f) -> Mat2f {
   new(mat.x.x, mat.y.x, mat.x.y, mat.y.y)
 }
 
+/// Returns the diagonal of the `Mat2f`
+pub fn diagonal(mat: Mat2f) -> Vec2f {
+  Vec2(mat.x.x, mat.y.y)
+}
+
 /// Returns the determinant for the `Mat2f`.
 pub fn determinant(mat: Mat2f) -> Float {
   mat.x.x *. mat.y.y -. mat.x.y *. mat.y.x
@@ -100,6 +102,11 @@ pub fn negate(mat: Mat2f) -> Mat2f {
   vec2.map(mat, vec2f.negate)
 }
 
+/// Takes the absolute value of each element in the `Mat2f`.
+pub fn absolute_value(mat: Mat2f) -> Mat2f {
+  vec2.map(mat, vec2f.absolute_value)
+}
+
 /// Adds two `Mat2f` together.
 pub fn add(a: Mat2f, b: Mat2f) -> Mat2f {
   vec2.map2(a, b, vec2f.add)
@@ -131,4 +138,26 @@ pub fn scale(mat: Mat2f, scale: Float) -> Mat2f {
 /// This is faster than creating a diagonal scaling matrix and then multiplying that.
 pub fn scale_diagonal(mat: Mat2f, scale: Vec2f) -> Mat2f {
   vec2.map2(mat, scale, vec2f.scale)
+}
+
+/// Returns a matrix containing the reciprocal of each element of the `Mat2f`.
+///
+/// If any of the elements is zero, an error is returned.
+pub fn reciprocal(mat: Mat2f) -> Result(Mat2f, Nil) {
+  vec2.map(mat, fn(column) {
+    column
+    |> vec2.map(float.divide(1.0, _))
+    |> vec2.result()
+  })
+  |> vec2.result
+}
+
+/// Sums a list of `Mat2f`s.
+pub fn sum(mats: List(Mat2f)) -> Mat2f {
+  list.fold(mats, zero, add)
+}
+
+/// Multiplies a list of `Mat2f`s.
+pub fn product(mats: List(Mat2f)) -> Mat2f {
+  list.fold(mats, identity, multiply)
 }

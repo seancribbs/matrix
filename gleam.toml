@@ -1,13 +1,18 @@
 name = "matrix_gleam"
-version = "0.1.0"
+version = "0.2.0"
 
 description = "Matrix mathematics for Gleam"
 licences = ["MIT"]
 repository = { type = "github", user = "seancribbs", repo = "matrix" }
 
+internal_modules = [
+  "matrix/internal/*",
+]
+
+
 [dependencies]
 gleam_stdlib = ">= 0.44.0 and < 2.0.0"
-vec = ">= 3.4.0 and < 4.0.0"
+vec = ">= 3.5.0 and < 4.0.0"
 gleam_community_maths = ">= 2.0.1 and < 3.0.0"
 
 [dev-dependencies]
